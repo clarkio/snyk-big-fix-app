@@ -63,6 +63,9 @@
               <p class="card__text projects-page__card-text">
                 Last Test Date: <%= projects[i].projects[j].lastTestedDate %>
             </p>
+            <p class="card__text projects-page__card-text">
+              Issue Counts by Severity: <%= JSON.stringify(projects[i].projects[j].issueCountsBySeverity) %>
+          </p>
                 </div>
               </div>
               </div>
