@@ -46,8 +46,8 @@ export function getOAuth2(): SnykOAuth2Strategy {
    * 5. nonce: nonce value
    * 6: profileFunc(optional): definition of your profileFunc
    */
-  const clientID = process.env[Envars.ClientId] as string;
-  const clientSecret = process.env[Envars.ClientSecret] as string;
+  const clientID = process.env[Envars.SnykClientId] as string;
+  const clientSecret = process.env[Envars.SnykClientSecret] as string;
   const callbackURL = process.env[Envars.RedirectUri] as string;
   const scope = process.env[Envars.Scopes] as string;
   const nonce = uuid4();

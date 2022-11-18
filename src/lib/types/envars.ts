@@ -1,6 +1,6 @@
 export const enum Envars {
-  ClientId = 'CLIENT_ID',
-  ClientSecret = 'CLIENT_SECRET',
+  SnykClientId = 'SNYK_CLIENT_ID',
+  SnykClientSecret = 'SNYK_CLIENT_SECRET',
   RedirectUri = 'REDIRECT_URI',
   Scopes = 'SCOPES',
   EncryptionSecret = 'ENCRYPTION_SECRET',

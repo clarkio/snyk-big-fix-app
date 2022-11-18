@@ -15,8 +15,8 @@ import config from 'config';
 export async function refreshAuthToken(refreshToken: string): Promise<AuthData> {
   const querystring = qs.stringify({
     grant_type: GrantType.RefreshToken,
-    client_id: process.env[Envars.ClientId],
-    client_secret: process.env[Envars.ClientSecret],
+    client_id: process.env[Envars.SnykClientId],
+    client_secret: process.env[Envars.SnykClientSecret],
     refresh_token: refreshToken,
   });
   try {

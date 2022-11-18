@@ -5,6 +5,7 @@
     "app": {
         "base": "https://app.snyk.io"
     },
+    "baseUrl": "http://localhost",
     "authorizationUrl": "/oauth2/authorize",
     "tokenUrl": "/oauth2/token",
     "port": 3000

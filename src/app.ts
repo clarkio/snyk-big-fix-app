@@ -15,9 +15,11 @@ import { getOAuth2 } from './lib/utils/OAuth2Strategy';
 import { v4 as uuidv4 } from 'uuid';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
+import { auth, ConfigParams } from 'express-openid-connect';
 
 export const API_BASE = config.get(Config.ApiBase);
 export const APP_BASE = config.get(Config.AppBase);
+export const BASE_URL: string = config.get(Config.BaseUrl);
 
 /**
  * The App class has all app related configuration required
@@ -26,6 +28,7 @@ export const APP_BASE = config.get(Config.AppBase);
 class App {
   public app: Application;
   private server: Server;
+  private auth0Config: ConfigParams;
 
   /**
    * Constructor for the App class
@@ -37,6 +40,15 @@ class App {
   constructor(controllers: Controller[], port: number) {
     // Initialize the app(create express server)
     this.app = express();
+
+    this.auth0Config = {
+      authRequired: true,
+      auth0Logout: true,
+      baseURL: BASE_URL ? `${BASE_URL}:${port}` : `http://localhost:${port}`,
+      routes: {
+        callback: '/callback-auth0',
+      },
+    };
     // Check the require environmental variables are set
     this.checkEnvVars();
     // Initialize the DB file(we use lightweight JSON based lowdb for this demo app)
@@ -102,6 +114,13 @@ class App {
     this.app.use(express.urlencoded({ extended: true }));
     this.app.set('views', path.join(__dirname, '/views'));
     this.app.set('view engine', 'ejs');
+
+    this.app.use(auth(this.auth0Config));
+    this.app.use((req, res, next) => {
+      res.locals.user = req.oidc.user;
+      next();
+    });
+
     this.app.use('/public', express.static(path.join(__dirname, '/public')));
     this.app.use(expressSession({ secret: uuidv4(), resave: false, saveUninitialized: true }));
     this.app.use(
@@ -136,7 +155,7 @@ class App {
    */
   private checkEnvVars() {
     envCheck(
-      [Envars.ClientId, Envars.ClientSecret, Envars.RedirectUri, Envars.Scopes, Envars.EncryptionSecret],
+      [Envars.SnykClientId, Envars.SnykClientSecret, Envars.RedirectUri, Envars.Scopes, Envars.EncryptionSecret],
       Severity.FATAL,
     );
   }
