@@ -5,11 +5,25 @@
 
   <div class="index-page">
     <img class="index-page__snyk-logo" src="/public/images/snykLogoWithDog.svg" alt="snyk-logo" />
-    <div class="index-page__card">
-      <h1 class="index-page__title">Add Demo App</h1>
-      <p class="index-page__description">Authorize this App to connect to your Snyk account.</p>
-      <button class="button" onclick="location.href='/auth';">Install App</button>
-    </div>
+    <% if (locals.isAuthenticated) { %>
+        <div class="index-page">
+            <div class="index-page__card">
+              <h1 class="index-page__title">Authorize Snyk</h1>
+              <p class="index-page__description">
+                Now that you're registered for The Big Fix event, 
+                authorize this App to connect to your Snyk account.
+            </p>
+              <button class="button" onclick="location.href='/auth';">Install App</button>
+            </div>
+        </div>
+    <% } else { %>
+        <div class="index-page__card">
+            <h1 class="index-page__title">Welcome to The Big Fix!</h1>
+            <p class="index-page__description">This will be the public landing page</p>
+            <button class="button" onclick="location.href='/login';">Login or Register</button>
+        </div>
+    <% } %>
   </div>
+
   <%- include('./partials/footer.ejs') %>
 </body>

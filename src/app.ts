@@ -42,7 +42,7 @@ class App {
     this.app = express();
 
     this.auth0Config = {
-      authRequired: true,
+      authRequired: false,
       auth0Logout: true,
       baseURL: BASE_URL ? `${BASE_URL}:${port}` : `http://localhost:${port}`,
       routes: {

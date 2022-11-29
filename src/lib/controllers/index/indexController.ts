@@ -35,6 +35,8 @@ export class IndexController implements Controller {
    */
   private indexPage(req: Request, res: Response, next: NextFunction) {
     if (req.user) return res.redirect('/projects');
-    return res.render('index');
+    return res.render(
+      'index', { isAuthenticated: req.oidc.isAuthenticated() }
+    );
   }
 }
