@@ -16,6 +16,7 @@ import { v4 as uuidv4 } from 'uuid';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import { auth, ConfigParams } from 'express-openid-connect';
+import cors from 'cors';
 
 export const API_BASE = config.get(Config.ApiBase);
 export const APP_BASE = config.get(Config.AppBase);
@@ -111,6 +112,13 @@ class App {
    */
   private initGlobalMiddlewares() {
     this.app.use(express.json());
+    this.app.use(cors({
+      origin: [
+        'http://localhost:4040'
+      ],
+      credentials: true,
+      // exposedHeaders: ['set-cookie']
+    }));
     this.app.use(express.urlencoded({ extended: true }));
     this.app.set('views', path.join(__dirname, '/views'));
     this.app.set('view engine', 'ejs');

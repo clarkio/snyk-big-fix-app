@@ -20,6 +20,7 @@ export async function getProjectsFromApi(): Promise<unknown[]> {
   // Decrypt data(access token)
   const eD = new EncryptDecrypt(process.env[Envars.EncryptionSecret] as string);
   const access_token = eD.decryptString(data?.access_token);
+
   const token_type = data?.token_type;
 
   // Call the axios instance configured for Snyk API v1
