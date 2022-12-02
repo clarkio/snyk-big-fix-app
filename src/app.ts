@@ -22,6 +22,12 @@ export const API_BASE = config.get(Config.ApiBase);
 export const APP_BASE = config.get(Config.AppBase);
 export const BASE_URL: string = config.get(Config.BaseUrl);
 
+declare module "express-session" {
+  interface SessionData {
+    access_token: String;
+  }
+}
+
 /**
  * The App class has all app related configuration required
  * to run the app instance.

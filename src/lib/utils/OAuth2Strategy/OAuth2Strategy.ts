@@ -105,6 +105,8 @@ export function getOAuth2(): SnykOAuth2Strategy {
          */
         const { orgs } = await getAppOrgs(token_type, access_token);
         const ed = new EncryptDecrypt(process.env[Envars.EncryptionSecret] as string);
+        req.session.access_token = access_token;
+        req.session.save();
         await writeToDb({
           date: new Date(),
           userId,

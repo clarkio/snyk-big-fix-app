@@ -37,7 +37,7 @@ export class ProjectsApiController implements Controller {
    */
   private async getProjects(req: Request, res: Response, next: NextFunction) {
     try {
-      const projects = await getProjectsFromApi();
+      const projects = await getProjectsFromApi(req.session.access_token);
       return res.send(projects);
       // return res.render('projects', {
       //   projects,

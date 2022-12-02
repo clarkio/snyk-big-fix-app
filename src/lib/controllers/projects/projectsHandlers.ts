@@ -10,7 +10,7 @@ import { APIVersion, AuthData, Envars } from '../../types';
  * token scopes on what you can and can not access
  * @returns List of user project or an empty array
  */
-export async function getProjectsFromApi(): Promise<unknown[]> {
+export async function getProjectsFromApi(access_token: any): Promise<unknown[]> {
   // Read data from DB
   const db = await readFromDb();
   const data = mostRecent(db.installs);
@@ -19,7 +19,7 @@ export async function getProjectsFromApi(): Promise<unknown[]> {
 
   // Decrypt data(access token)
   const eD = new EncryptDecrypt(process.env[Envars.EncryptionSecret] as string);
-  const access_token = eD.decryptString(data?.access_token);
+  // const access_token = eD.decryptString(data?.access_token);
 
   const token_type = data?.token_type;
 

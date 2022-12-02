@@ -48,6 +48,7 @@ export class CallbackController implements Controller {
    */
   private success(req: Request, res: Response, next: NextFunction) {
     return res.render('callback');
+    // return res.redirect('http://localhost:4040');
   }
   /**
    * Handle the failure response of authentication
